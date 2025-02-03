@@ -13,6 +13,12 @@ sudo apt-get update ; \
 sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make
 ```
 
+Add new user:
+```
+adduser artem
+usermod -aG sudo artem
+```
+
 Configure SSH:
 
 ```
