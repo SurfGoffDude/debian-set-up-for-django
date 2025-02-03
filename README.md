@@ -109,8 +109,10 @@ sudo make altinstall
 Now python3.13.1 in `/home/artem/.python/bin/python3.13.1`. Update pip:
 
 ```
-sudo /home/artem/.python/bin/python3.13.1 -m pip install -U pip
+sudo /home/artem/.python/bin/python3.13 -m pip install -U pip
 ```
+
+If you have ssl issue, use this [guide](https://gist.github.com/SurfGoffDude/52651ec4532b3cc54bfa1a56cf02d9ea)
 
 Ok, now we can pull our project from Git repository (or create own), create and activate Python virtual environment:
 
