@@ -17,16 +17,16 @@ Configure SSH:
 
 ```
 sudo vim /etc/ssh/sshd_config
-    AllowUsers www
+    AllowUsers artem
     PermitRootLogin no
     PasswordAuthentication no
 ```
 
-Restart SSH server, change `www` user password:
+Restart SSH server, change `artem` user password:
 
 ```
 sudo service ssh restart
-sudo passwd www
+sudo passwd artem
 ```
 
 ## Init — must-have packages & ZSH
@@ -48,26 +48,26 @@ vim ~/.zshrc
     alias cls="clear"
 ```
 
-## Install python 3.7
+## Install python 3.13.1
 
 mkdir ~/code
 
-Build from source python 3.7, install with prefix to ~/.python folder:
+Build from source python 3.13.1, install with prefix to ~/.python folder:
 
 ```
-wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz ; \
-tar xvf Python-3.7.* ; \
-cd Python-3.7.3 ; \
+wget https://www.python.org/ftp/python/3.13.1/Python-3.13.1.tgz ; \
+tar xvf Python-3.13.* ; \
+cd Python-3.13.1 ; \
 mkdir ~/.python ; \
-./configure --enable-optimizations --prefix=/home/www/.python ; \
+./configure --enable-optimizations --prefix=/home/artem/.python ; \
 make -j8 ; \
 sudo make altinstall
 ```
 
-Now python3.7 in `/home/www/.python/bin/python3.7`. Update pip:
+Now python3.13.1 in `/home/artem/.python/bin/python3.13.1`. Update pip:
 
 ```
-sudo /home/www/.python/bin/python3.7 -m pip install -U pip
+sudo /home/artem/.python/bin/python3.13.1 -m pip install -U pip
 ```
 
 Ok, now we can pull our project from Git repository (or create own), create and activate Python virtual environment:
@@ -76,7 +76,7 @@ Ok, now we can pull our project from Git repository (or create own), create and 
 cd code
 git pull project_git
 cd project_dir
-python3.7 -m venv env
+python3.13.1 -m venv env
 . ./env/bin/activate
 ```
 
@@ -158,18 +158,18 @@ Now recommended way is using Systemd instead of supervisor. If you need supervis
 ```
 sudo apt install supervisor
 
-vim /home/www/code/project/bin/start_gunicorn.sh
+vim /home/artem/code/project/bin/start_gunicorn.sh
 	#!/bin/bash
-	source /home/www/code/project/env/bin/activate
-	source /home/www/code/project/env/bin/postactivate
-	exec gunicorn  -c "/home/www/code/project/gunicorn_config.py" project.wsgi
+	source /home/artem/code/project/env/bin/activate
+	source /home/artem/code/project/env/bin/postactivate
+	exec gunicorn  -c "/home/artem/code/project/gunicorn_config.py" project.wsgi
 
-chmod +x /home/www/code/project/bin/start_gunicorn.sh
+chmod +x /home/artem/code/project/bin/start_gunicorn.sh
 
 vim project/supervisor.salesbeat.conf
 	[program:www_gunicorn]
 	command=/home/www/code/project/bin/start_gunicorn.sh
-	user=www
+	user=artem
 	process_name=%(program_name)s
 	numprocs=1
 	autostart=true
@@ -180,11 +180,11 @@ vim project/supervisor.salesbeat.conf
 If you need some Gunicorn example config — welcome:
 
 ```
-command = '/home/www/code/project/env/bin/gunicorn'
-pythonpath = '/home/www/code/project/project'
+command = '/home/artem/code/project/env/bin/gunicorn'
+pythonpath = '/home/artem/code/project/project'
 bind = '127.0.0.1:8001'
 workers = 3
-user = 'www'
+user = 'artem'
 limit_request_fields = 32000
 limit_request_field_size = 0
 raw_env = 'DJANGO_SETTINGS_MODULE=project.settings'
