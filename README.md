@@ -41,7 +41,7 @@ sudo passwd artem
 sudo apt-get install -y zsh tree redis-server nginx zlib1g-dev libbz2-dev libreadline-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev liblzma-dev python3-dev python-imaging python3-lxml libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev supervisor
 ```
 
-if doesn't work change content in ```/etc/apt/sources.list``` with:
+if doesn't work change content in ```/etc/apt/sources.list``` with(optional):
 
 ```
 deb http://deb.debian.org/debian buster main
@@ -91,6 +91,16 @@ wget https://www.python.org/ftp/python/3.13.1/Python-3.13.1.tgz ; \
 tar xvf Python-3.13.* ; \
 cd Python-3.13.1 ; \
 mkdir ~/.python ; \
+./configure --enable-optimizations --prefix=/home/artem/.python ; \
+make -j8 ; \
+sudo make altinstall
+```
+
+If you meet this ```configure: WARNING: pkg-config is missing. Some dependencies may not be detected correctly.``` you should do this:
+
+```
+sudo apt install pkgconf
+sudo apt install build-essential
 ./configure --enable-optimizations --prefix=/home/artem/.python ; \
 make -j8 ; \
 sudo make altinstall
