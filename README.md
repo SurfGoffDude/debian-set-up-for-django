@@ -1,4 +1,4 @@
-# Debian Server Set Up for Django Instruction
+# Debian 11 Server Set Up for Django Instruction
 
 In this guide we will set up clean Debian server for Python and Django projects. We will configure secure SSH connection, install from Debian repositories and from sources all needed packages and ware it together for working Debian Django server.
 
@@ -100,7 +100,7 @@ Ok, now we can pull our project from Git repository (or create own), create and 
 cd code
 git pull project_git
 cd project_dir
-python3.13.1 -m venv env
+python3.13 -m venv env
 . ./env/bin/activate
 ```
 
