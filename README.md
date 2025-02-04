@@ -211,3 +211,21 @@ limit_request_fields = 32000
 limit_request_field_size = 0
 raw_env = 'DJANGO_SETTINGS_MODULE=project.settings'
 ```
+
+For NGINX go to ```sites-enabled``` with:
+
+```
+sudo vim /etc/nginx/sites-enabled/
+```
+
+and update defaults:
+
+```
+location / {
+	proxy_pass http://127.0.0.1:8001;
+	proxy_set_header X-Forwarded-Host $server_name;
+	proxy_set_header X-Real-IP $remote_addr;
+	add_header P3P 'CP=" ALL DSP COR PSAa PSDa OUR NOR ONL UNI NAV"';
+	add_header Access-Control-Allow-Origin *;
+}
+```
