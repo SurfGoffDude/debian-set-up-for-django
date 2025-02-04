@@ -129,28 +129,28 @@ sudo vim /etc/profile
     export LC_ALL=ru_RU.UTF-8
 ```
 
-Change `postges` password, create clear database named `dbms_db`:
+Change `postges` password, create clear database named `my_crm`:
 
 ```
 sudo passwd postgres
 su - postgres
 export PATH=$PATH:/usr/lib/postgresql/11/bin
-createdb --encoding UNICODE dbms_db --username postgres
+createdb --encoding UNICODE my_crm --username postgres
 exit
 ```
 
-Create `dbms` db user and grand privileges to him:
+Create `artem` db user and grand privileges to him:
 
 ```
 sudo -u postgres psql
 postgres=# ...
-create user dbms with password 'some_password';
-ALTER USER dbms CREATEDB;
-grant all privileges on database dbms_db to dbms;
-\c dbms_db
-GRANT ALL ON ALL TABLES IN SCHEMA public to dbms;
-GRANT ALL ON ALL SEQUENCES IN SCHEMA public to dbms;
-GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to dbms;
+create user artem with password 'some_password';
+ALTER USER artem CREATEDB;
+grant all privileges on database my_crm to artem;
+\c my_crm
+GRANT ALL ON ALL TABLES IN SCHEMA public to artem;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public to artem;
+GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to artem;
 CREATE EXTENSION pg_trgm;
 ALTER EXTENSION pg_trgm SET SCHEMA public;
 UPDATE pg_opclass SET opcdefault = true WHERE opcname='gin_trgm_ops';
@@ -162,15 +162,15 @@ Now we can test connection. Create `~/.pgpass` with login and password to db for
 
 ```
 vim ~/.pgpass
-	localhost:5432:dbms_db:dbms:some_password
+	localhost:5432:my_crm:artem:some_password
 chmod 600 ~/.pgpass
-psql -h localhost -U dbms dbms_db
+psql -h localhost -U artem my_crm
 ```
 
 Run SQL dump, if you have:
 
 ```
-psql -h localhost dbms_db dbms  < dump.sql
+psql -h localhost my_crm artem  < dump.sql
 ```
 
 ## Install and configure supervisor
