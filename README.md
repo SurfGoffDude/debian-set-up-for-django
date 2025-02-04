@@ -229,3 +229,9 @@ location / {
 	add_header Access-Control-Allow-Origin *;
 }
 ```
+
+then
+
+```
+sudo service nginx restart
+```
